@@ -11,12 +11,20 @@
   <body>
     <div class="container-fluid">
       <div class="row" id="search_form">
-        <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET">
-          <label for="search_string">Поиск:</label>
-          <input name="search_string" type="text" value="" maxlength="200"/>
-          <input name="do_search" type="submit" value="Найти"/>
+        <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET" class="form-inline">
+          <div class="form-group">
+            <label for="searchString">Поиск:</label>
+            <input name="searchString" type="text" class="form-control" value="" maxlength="200"/>
+          </div>
+          <button class="btn btn-default" type="submit">Найти</button>
         </form>
       </div>
+      <?php if ($searchString != ""):?>
+      <div>
+        <p>Показаны только абитуриенты, найденные по запросу «<?=$searchString?>». </p>
+        <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
+      </div>
+      <?php endif; ?>
       <div class="row" id="students_table">
         <div class="col-sm-8">
           <table id="students" class="table">
@@ -28,7 +36,11 @@
             </tr>
             <?php foreach ($students as $s): ?>
               <tr>
-                <td><?=$s->firstName?></td>
+                <td>
+                  <a href="/ControllerStudent.php?id=<?=$s->id?>">
+                    <?=$s->firstName?>
+                  </a>
+                </td>
                 <td><?=$s->lastName?></td>
                 <td><?=$s->group?></td>
                 <td><?=$s->mark?></td>

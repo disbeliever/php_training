@@ -7,13 +7,9 @@ $PDO = new PDO("pgsql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
 $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $STG = new StudentTableGateway($PDO);
 
-$searchString = isset($_GET['searchString']) ? $_GET['searchString'] : "";
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-if ($searchString == "") {
-    $students = $STG->getAllStudents();
+if ($id > 0) {
+    $student = $STG->getStudentById($id);
+    include('views/ViewStudent.php');
 }
-else {
-    $students = $STG->searchInDB($searchString);
-}
-
-include('views/ViewStudentsList.php');
