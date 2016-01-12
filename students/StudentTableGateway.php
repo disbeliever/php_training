@@ -10,20 +10,21 @@ class StudentTableGateway
 
     public function addStudent(Student $student)
     {
-        $query = $this->pdo->query("INSERT INTO students(first_name, last_name, group, mark) VALUES(@first_name, @last_name, @group, @mark)");
+        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, group, mark) VALUES(:first_name, :last_name, :group, :mark)");
 
-        $query->bindValue("@first_name", $student->firstName);
-        $query->bindValue("@last_name", $student->lastName);
-        $query->bindValue("@group", $student->group);
-        $query->bindValue("@mark", $student->mark);
+        $query->bindValue(":first_name", $student->firstName);
+        $query->bindValue(":last_name", $student->lastName);
+        $query->bindValue(":group", $student->group);
+        $query->bindValue(":mark", $student->mark);
         
         $query->execute();
     }
 
     public function getStudentById($id)
     {
-        $query = $this->pdo->query("SELECT * FROM students WHERE id=@id");
-        $query->bindValue("@id", $id);
+        $query = $this->pdo->prepare("SELECT * FROM students WHERE id=:id");
+        $query->bindValue(":id", $id);
+        $query->execute();
         $row = $query->fetch();
 
         if ($row) {
@@ -44,8 +45,9 @@ class StudentTableGateway
 
     public function searchInDB($searchString)
     {
-        $query = $this->pdo->query("SELECT * FROM students WHERE CONCAT(first_name, last_name, student_group, mark) LIKE @search_string");
-        $query->bindValue("@search_string", "%" . $searchString . "%");
+        $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) LIKE '%' || :search_string || '%'");
+        $query->bindValue(":search_string", $searchString, PDO::PARAM_STR);
+        $query->execute();
         $arr = array();
         while ($row = $query->fetch()) {
             $arr[] = new Student($row);
