@@ -14,7 +14,6 @@ class Student
     public $local;
     public $email;
     
-    
     public function __construct($row)
     {
         $this->id = $row['id'];
