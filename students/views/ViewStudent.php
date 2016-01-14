@@ -55,7 +55,7 @@
 
           <div class="form-group">
             <label for="email">E-mail</label>
-            <input class="form-control" name="email" type="email" maxlength="254" value="<?=$student->email?>"/>
+            <input class="form-control" name="email" type="email" maxlength="254" value="<?=htmlspecialchars($student->email)?>"/>
           </div>
 
           <button class="btn btn-default" type="submit">Сохранить</button>

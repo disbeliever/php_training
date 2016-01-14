@@ -10,6 +10,9 @@
 
   <body>
     <div class="container-fluid">
+      <div class="row">
+        <a href="ControllerStudent.php">Регистрация</a>
+      </div>
       <div class="row" id="search_form">
         <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET" class="form-inline">
           <div class="form-group">
@@ -21,7 +24,7 @@
       </div>
       <?php if ($searchString != ""):?>
       <div>
-        <p>Показаны только абитуриенты, найденные по запросу «<?=$searchString?>». </p>
+        <p>Показаны только абитуриенты, найденные по запросу «<?=htmlspecialchars($searchString)?>». </p>
         <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
       </div>
       <?php endif; ?>
@@ -38,12 +41,12 @@
               <tr>
                 <td>
                   <a href="/ControllerStudent.php?id=<?=$s->id?>">
-                    <?=$s->firstName?>
+                    <?=htmlspecialchars($s->firstName)?>
                   </a>
                 </td>
-                <td><?=$s->lastName?></td>
-                <td><?=$s->group?></td>
-                <td><?=$s->mark?></td>
+                <td><?=htmlspecialchars($s->lastName)?></td>
+                <td><?=htmlspecialchars($s->group)?></td>
+                <td><?=htmlspecialchars($s->mark)?></td>
                 <td></td>
               </tr>
             <?php endforeach; ?>
