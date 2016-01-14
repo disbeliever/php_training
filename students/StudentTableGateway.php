@@ -28,7 +28,7 @@ class StudentTableGateway
         $row = $query->fetch();
 
         if ($row) {
-            return new Student($row);
+            return Student::fromRow($row);
         }
     }
 
@@ -37,7 +37,7 @@ class StudentTableGateway
         $query = $this->pdo->query("SELECT * FROM students");
         $arr = array();
         while ($row = $query->fetch()) {
-            $arr[] = new Student($row);
+            $arr[] = Student::fromRow($row);
         }
 
         return $arr;
@@ -50,7 +50,7 @@ class StudentTableGateway
         $query->execute();
         $arr = array();
         while ($row = $query->fetch()) {
-            $arr[] = new Student($row);
+            $arr[] = Student::fromRow($row);
         }
 
         return $arr;
