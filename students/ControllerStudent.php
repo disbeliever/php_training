@@ -14,3 +14,8 @@ else {
 if ($student != null) {
     include('views/ViewStudent.php');
 }
+else {
+    header("HTTP/1.0 404 Student not found");
+    $errString = "Абитуриент с id=$id не найден";
+    include('views/404.php');
+}
