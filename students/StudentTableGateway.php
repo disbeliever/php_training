@@ -10,14 +10,15 @@ class StudentTableGateway
 
     public function addStudent(Student $student)
     {
-        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, group, mark) VALUES(:first_name, :last_name, :group, :mark)");
+        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark) VALUES(:first_name, :last_name, :student_group, :mark) RETURNING id");
 
         $query->bindValue(":first_name", $student->firstName);
         $query->bindValue(":last_name", $student->lastName);
-        $query->bindValue(":group", $student->group);
+        $query->bindValue(":student_group", $student->group);
         $query->bindValue(":mark", $student->mark);
         
         $query->execute();
+        $student->id = $query->fetchColumn();
     }
 
     public function getStudentById($id)

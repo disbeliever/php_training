@@ -2,7 +2,7 @@
 <html lang="ru">
 
   <head>
-    <title>Студент: <?= $student->firstName ?> <?= $student->lastName ?></title>
+    <title><?=htmlspecialchars($title)?></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -13,24 +13,27 @@
       <nav>
         <a href="/index.php">Список абитуриентов</a>
       </nav>
+      <?php if($registered): ?>
+        <div class="alert alert-success">Регистрация выполнена</div>
+      <?php endif; ?>
       <div id="register_form">
         <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="POST" role="form">
 
-          <input name="id" type="hidden" value="<?=$student->id?>"/>
+          <input name="id" type="hidden" value="<?=$id?>"/>
 
           <div class="form-group">
             <label for="firstName">Имя</label>
-            <input class="form-control" name="firstName" type="text" maxlength="200" value="<?=htmlspecialchars($student->firstName)?>"/>
+            <input class="form-control" name="firstName" type="text" maxlength="200" required value="<?=htmlspecialchars($student->firstName)?>"/>
           </div>
 
           <div class="form-group">
             <label for="lastName">Фамилия</label>
-            <input class="form-control" name="lastName" type="text" maxlength="200" value="<?=htmlspecialchars($student->lastName)?>"/>
+            <input class="form-control" name="lastName" type="text" maxlength="200" required value="<?=htmlspecialchars($student->lastName)?>"/>
           </div>
           
           <div class="form-group">
             <label for="group">Группа</label>
-            <input class="form-control" name="group" type="text" value="<?=htmlspecialchars($student->group)?>"/>
+            <input class="form-control" name="group" type="text" maxlength="5" required value="<?=htmlspecialchars($student->group)?>"/>
           </div>
 
           <div class="form-group">
@@ -58,7 +61,7 @@
             <input class="form-control" name="email" type="email" maxlength="254" value="<?=htmlspecialchars($student->email)?>"/>
           </div>
 
-          <button class="btn btn-default" type="submit">Сохранить</button>
+          <button class="btn btn-default" type="submit" name="dosave" value="1"><?=$saveButtonText?></button>
         </form>
       </div>
     </div>
