@@ -10,15 +10,34 @@ class StudentTableGateway
 
     public function addStudent(Student $student)
     {
-        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark) VALUES(:first_name, :last_name, :student_group, :mark) RETURNING id");
+        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark, email, gender) VALUES(:first_name, :last_name, :student_group, :mark, :email, :gender) RETURNING id");
 
         $query->bindValue(":first_name", $student->firstName);
         $query->bindValue(":last_name", $student->lastName);
         $query->bindValue(":student_group", $student->group);
         $query->bindValue(":mark", $student->mark);
+        $query->bindValue(":email", $student->email);
+        $query->bindValue(":gender", $student->gender);
         
         $query->execute();
         $student->id = $query->fetchColumn();
+    }
+
+    public function updateStudent(Student $student)
+    {
+        $query_string = "UPDATE students SET first_name=:first_name,last_name=:last_name,student_group=:student_group,mark=:mark,email=:email,gender=:gender WHERE id=:id";
+
+        $query = $this->pdo->prepare($query_string);
+
+        $query->bindValue(":id", $student->id);
+        $query->bindValue(":first_name", $student->firstName);
+        $query->bindValue(":last_name", $student->lastName);
+        $query->bindValue(":student_group", $student->group);
+        $query->bindValue(":mark", $student->mark);
+        $query->bindValue(":email", $student->email);
+        $query->bindValue(":gender", $student->gender);
+
+        $query->execute();
     }
 
     public function getStudentById($id)

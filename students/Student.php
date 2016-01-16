@@ -5,6 +5,7 @@ class Student
     const GENDER_MALE = 'male';
     const GENDER_FEMALE = 'female';
 
+    public $id;
     public $firstName;
     public $lastName;
     public $group;

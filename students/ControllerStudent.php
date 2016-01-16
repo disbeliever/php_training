@@ -3,10 +3,28 @@ error_reporting(-1);
 require_once('autoloader.php');
 require_once('init.php');
 
+function isFormSent()
+{
+    return isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST";
+}
+
+function isEditable()
+{
+    return isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0;
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $registered = isset($_GET['registered']);
+$changesSaved = isset($_GET['changesSaved']);
 
-if (isset($_POST['dosave'])) {
+if ($registered) {
+    $succString = "Регистрация выполнена";
+}
+else if ($changesSaved) {
+    $succString = "Изменения сохранены";
+}
+
+if (isFormSent()) {
     $student = new Student();
     foreach (array_keys(get_object_vars($student)) as $field) {
         if (isset($_POST[$field])) {
@@ -14,9 +32,35 @@ if (isset($_POST['dosave'])) {
         }
     }
 
+    if (isset($_POST['gender'])) {
+        switch($_POST['gender'])
+        {
+            case 'male': {
+                $student->gender = Student::GENDER_MALE;
+                break;
+            }
+            case 'female': {
+                $student->gender = Student::GENDER_FEMALE;
+                break;
+            }
+            default: {
+                $student->gender = null;
+                break;
+            }
+        }
+    }
+
+    # TODO: add validation here
+
     try {
-        $STG->addStudent($student);
-        header("Location: {$_SERVER['SCRIPT_NAME']}?id={$student->id}&registered=1");
+        if (isEditable()) {
+            $STG->updateStudent($student);
+            header("Location: {$_SERVER['SCRIPT_NAME']}?id={$student->id}&changesSaved=1");
+        }
+        else {
+            $STG->addStudent($student);
+            header("Location: {$_SERVER['SCRIPT_NAME']}?id={$student->id}&registered=1");
+        }
     }
     catch (PDOException $e) {
         #TODO: actually do something here

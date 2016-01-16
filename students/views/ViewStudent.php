@@ -13,8 +13,8 @@
       <nav>
         <a href="/index.php">Список абитуриентов</a>
       </nav>
-      <?php if($registered): ?>
-        <div class="alert alert-success">Регистрация выполнена</div>
+      <?php if(isset($succString) && $succString != ""): ?>
+        <div class="alert alert-success"><?=$succString?></div>
       <?php endif; ?>
       <div id="register_form">
         <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="POST" role="form">
@@ -61,7 +61,7 @@
             <input class="form-control" name="email" type="email" maxlength="254" required value="<?=htmlspecialchars($student->email)?>"/>
           </div>
 
-          <button class="btn btn-default" type="submit" name="dosave" value="1"><?=$saveButtonText?></button>
+          <button class="btn btn-default" type="submit" value="1"><?=$saveButtonText?></button>
         </form>
       </div>
     </div>
