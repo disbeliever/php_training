@@ -1,4 +1,5 @@
 <?php
+require_once('autoloader.php');
 require_once('config.php');
 
 $PDO = new PDO("pgsql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
