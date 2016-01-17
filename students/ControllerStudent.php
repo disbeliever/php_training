@@ -53,19 +53,19 @@ if (isFormSent()) {
     }
 
     $validator = new StudentValidator($STG);
-    $errors = $validator->validate($student);
+    $errors = array_filter($validator->validate($student));
 
     if (count($errors) == 0) {
         try {
-            $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}";
             if (isEditable()) {
-                $redirectTo .= "&changesSaved=1";
+                $redirectSuffix = "&changesSaved=1";
                 $STG->updateStudent($student);
             }
             else {
-                $redirectTo .= "&registered=1";
+                $redirectSuffix = "&registered=1";
                 $STG->addStudent($student);
             }
+            $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}$redirectSuffix";
             header("Location: $redirectTo");
         }
         catch (PDOException $e) {
