@@ -42,7 +42,7 @@ class StudentValidator
 
     private static function validateEmail($fieldValue)
     {
-        if (!preg_match("/.+@.+\..+/i", $fieldValue)) {
+        if (!preg_match("/.+@.+\..+/i", $fieldValue) == 1) {
             return "Укажите корректный E-mail (вида user@domain.suf)";
         }
     }
