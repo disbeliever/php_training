@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
 require_once('init.php');
+require_once('autoloader.php');
 
 function isFormSent()
 {
@@ -23,11 +24,13 @@ else if ($changesSaved) {
     $succString = "Изменения сохранены";
 }
 
+/* if method is POST then fill a Student object with data from $_POST
+   and try to save it */
 if (isFormSent()) {
     $student = new Student();
     foreach (array_keys(get_object_vars($student)) as $field) {
         if (isset($_POST[$field])) {
-            $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : $_POST[$field];
+            $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : trim($_POST[$field]);
         }
     }
 
@@ -49,34 +52,42 @@ if (isFormSent()) {
         }
     }
 
-    # TODO: add validation here
+    $validator = new StudentValidator($STG);
+    $errors = $validator->validate($student);
 
-    try {
-        if (isEditable()) {
-            $STG->updateStudent($student);
-            header("Location: {$_SERVER['SCRIPT_NAME']}?id={$student->id}&changesSaved=1");
+    if (count($errors) == 0) {
+        try {
+            $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}";
+            if (isEditable()) {
+                $redirectTo .= "&changesSaved=1";
+                $STG->updateStudent($student);
+            }
+            else {
+                $redirectTo .= "&registered=1";
+                $STG->addStudent($student);
+            }
+            header("Location: $redirectTo");
         }
-        else {
-            $STG->addStudent($student);
-            header("Location: {$_SERVER['SCRIPT_NAME']}?id={$student->id}&registered=1");
+        catch (PDOException $e) {
+            #TODO: actually do something here
+            var_dump($e);
+            #$errString = ;
         }
     }
-    catch (PDOException $e) {
-        #TODO: actually do something here
-        var_dump($e);
-        #$errString = ;
+}
+/* if method is GET then we should retreive student from DB (if we got id)
+   or create a new one. */
+else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if ($id > 0) {
+        $student = $STG->getStudentById($id);
     }
-}
-
-if ($id > 0) {
-    $student = $STG->getStudentById($id);
-}
-else {
-    $student = new Student();
+    else {
+        $student = new Student();
+    }
 }
 
 if ($student != null) {
-    if (isset($student->id)) {
+    if (isset($student->id) && $student->id > 0) {
         $title = "Студент: $student->firstName $student->lastName";
         $saveButtonText = "Сохранить изменения";
     }
