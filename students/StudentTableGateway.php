@@ -10,7 +10,7 @@ class StudentTableGateway
 
     public function addStudent(Student $student)
     {
-        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark, email, gender) VALUES(:first_name, :last_name, :student_group, :mark, :email, :gender) RETURNING id");
+        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark, email, gender, birthyear) VALUES(:first_name, :last_name, :student_group, :mark, :email, :gender, :birthyear) RETURNING id");
 
         $query->bindValue(":first_name", $student->firstName);
         $query->bindValue(":last_name", $student->lastName);
@@ -18,6 +18,7 @@ class StudentTableGateway
         $query->bindValue(":mark", $student->mark);
         $query->bindValue(":email", $student->email);
         $query->bindValue(":gender", $student->gender);
+        $query->bindValue(":birthyear", $student->birthyear);
         
         $query->execute();
         $student->id = $query->fetchColumn();
@@ -25,7 +26,7 @@ class StudentTableGateway
 
     public function updateStudent(Student $student)
     {
-        $query_string = "UPDATE students SET first_name=:first_name,last_name=:last_name,student_group=:student_group,mark=:mark,email=:email,gender=:gender WHERE id=:id";
+        $query_string = "UPDATE students SET first_name=:first_name,last_name=:last_name,student_group=:student_group,mark=:mark,email=:email,gender=:gender,birthyear=:birthyear WHERE id=:id";
 
         $query = $this->pdo->prepare($query_string);
 
@@ -36,6 +37,7 @@ class StudentTableGateway
         $query->bindValue(":mark", $student->mark);
         $query->bindValue(":email", $student->email);
         $query->bindValue(":gender", $student->gender);
+        $query->bindValue(":birthyear", $student->birthyear);
 
         $query->execute();
     }

@@ -58,10 +58,10 @@
           <div class="form-group <?=isset($errors['gender']) ? "has-error" : "" ?>">
             <label for="gender">Пол</label>
             <div class="radio">
-              <label><input name="gender" type="radio" value="male"/>М</label>
+              <label><input name="gender" type="radio" value="male" <?=$student->gender == Student::GENDER_MALE ? "checked" : ""?>/>М</label>
             </div>
             <div class="radio">
-              <label><input name="gender" type="radio" value="female"/>Ж</label>
+              <label><input name="gender" type="radio" value="female" <?=$student->gender == Student::GENDER_FEMALE ? "checked" : ""?>/>Ж</label>
             </div>
             <?php if(isset($errors['gender'])): ?>
               <label class="control-label"><?=$errors['gender']?></label>

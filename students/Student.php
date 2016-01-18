@@ -45,6 +45,7 @@ class Student
             }
         }
         $s->mark = $row['mark'];
+        $s->birthyear = $row['birthyear'];
         $s->email = $row['email'];
 
         return $s;
