@@ -65,7 +65,7 @@ class StudentTableGateway
         return $arr;
     }
 
-    public function isEmailInDB(string $email)
+    public function isEmailInDB($email)
     {
         $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email=:email");
         $query->bindValue(":email", $email);

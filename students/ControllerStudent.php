@@ -1,5 +1,4 @@
 <?php
-error_reporting(-1);
 require_once('init.php');
 require_once('autoloader.php');
 
@@ -53,7 +52,7 @@ if (isFormSent()) {
     }
 
     $validator = new StudentValidator($STG);
-    $errors = array_filter($validator->validate($student));
+    $errors = $validator->validate($student);
 
     if (count($errors) == 0) {
         try {

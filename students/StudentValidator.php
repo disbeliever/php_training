@@ -67,6 +67,6 @@ class StudentValidator
         $errors['birthyear'] = self::validateNumberWihtLimits($student->birthyear, 1900, 2000);
         $errors['email'] = $this->validateEmail($student->email);
 
-        return $errors;
+        return array_filter($errors);
     }
 }
