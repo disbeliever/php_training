@@ -40,10 +40,19 @@ class StudentValidator
             return "Выберите один из вариантов";
     }
 
-    private static function validateEmail($fieldValue)
+    private function validateEmail($fieldValue)
     {
-        if (!preg_match("/.+@.+\..+/i", $fieldValue) == 1) {
+        if ($fieldValue == "" || mb_strlen($fieldValue) == 0) {
+            return "Укажите E-mail";
+        }
+        else if (mb_strlen($fieldValue) > 254) {
+            return "Длина E-mail не может превышать 254 символов";
+        }
+        else if (!(preg_match("/.+@.+\..+/i", $fieldValue) == 1)) {
             return "Укажите корректный E-mail (вида user@domain.suf)";
+        }
+        else if ($this->STG->isEmailInDB($fieldValue)) {
+            return "Этот E-mail уже присутствует в базе данных";
         }
     }
 
@@ -56,7 +65,7 @@ class StudentValidator
         $errors['mark'] = self::validateNumberWihtLimits($student->mark, 0, 300);
         $errors['gender'] = self::validateGender($student->gender);
         $errors['birthyear'] = self::validateNumberWihtLimits($student->birthyear, 1900, 2000);
-        $errors['email'] = self::validateEmail($student->email);
+        $errors['email'] = $this->validateEmail($student->email);
 
         return $errors;
     }

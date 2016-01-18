@@ -65,6 +65,15 @@ class StudentTableGateway
         return $arr;
     }
 
+    public function isEmailInDB(string $email)
+    {
+        $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email=:email");
+        $query->bindValue(":email", $email);
+        $query->execute();
+        $count = $query->fetchColumn();
+        return $count > 0;
+    }
+
     public function searchInDB($searchString)
     {
         $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) LIKE '%' || :search_string || '%'");
