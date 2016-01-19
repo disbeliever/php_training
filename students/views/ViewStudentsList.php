@@ -6,16 +6,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/custom.css" rel="stylesheet" type="text/css"/>
   </head>
 
   <body>
     <div class="container-fluid">
       <div class="row">
-        <a href="ControllerStudent.php">Регистрация</a>
       </div>
-      <div class="row" id="search_form">
+      <div class="row row-centered" id="search_form">
         <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET" class="form-inline">
           <div class="form-group">
+            <button class="btn"><a href="ControllerStudent.php">Регистрация</a></button>
             <label for="searchString">Поиск:</label>
             <input name="searchString" type="text" class="form-control" value="" maxlength="200"/>
           </div>
@@ -28,8 +29,8 @@
         <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
       </div>
       <?php endif; ?>
-      <div class="row" id="students_table">
-        <div class="col-sm-8">
+      <div class="row row-centered" id="students_table">
+        <div class="col-sm-8 col-centered">
           <table id="students" class="table">
             <tr>
               <th>Имя</th>
