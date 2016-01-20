@@ -33,10 +33,24 @@
         <div class="col-sm-8 col-centered">
           <table id="students" class="table">
             <tr>
-              <th>Имя</th>
-              <th>Фамилия</th>
-              <th>Номер группы</th>
-              <th>Баллов</th>
+              <th>
+                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'first_name', $sortDir, 1), ENT_QUOTES)?>">Имя</a>
+              </th>
+              <th>
+                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'last_name', $sortDir, 1), ENT_QUOTES)?>">
+                  Фамилия
+                </a>
+              </th>
+              <th>
+                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'student_group', $sortDir, 1), ENT_QUOTES)?>">
+                  Номер группы
+                </a>
+              </th>
+              <th>
+                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'mark', $sortDir, 1), ENT_QUOTES)?>">
+                  Баллов
+                </a>
+              </th>
             </tr>
             <?php foreach ($students as $s): ?>
               <tr>
@@ -48,7 +62,6 @@
                 <td><?=htmlspecialchars($s->lastName)?></td>
                 <td><?=htmlspecialchars($s->group)?></td>
                 <td><?=htmlspecialchars($s->mark)?></td>
-                <td></td>
               </tr>
             <?php endforeach; ?>
           </table>

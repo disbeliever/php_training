@@ -54,15 +54,27 @@ class StudentTableGateway
         }
     }
 
-    public function getAllStudents()
+    private function getValidSortField($field)
     {
-        $query = $this->pdo->query("SELECT * FROM students");
-        $arr = array();
+        $orders = array("id", "first_name", "last_name", "student_group", "mark");
+        $key = array_search($field, $orders);
+        $order = $orders[$key];
+        return $order;
+    }
+
+    public function getAllStudents($sortField, $sortDir)
+    {
+        $sortField = $this->getValidSortField($sortField);
+        $sortDir = $sortDir == 'desc' ? "DESC" : "";
+        $query = $this->pdo->prepare("SELECT * FROM students ORDER BY $sortField $sortDir");
+        $query->execute();
+
+        $students = array();
         while ($row = $query->fetch()) {
-            $arr[] = Student::fromRow($row);
+            $students[] = Student::fromRow($row);
         }
 
-        return $arr;
+        return $students;
     }
 
     public function isEmailInDB($email)
@@ -74,9 +86,11 @@ class StudentTableGateway
         return $count > 0;
     }
 
-    public function searchInDB($searchString)
+    public function searchInDB($searchString, $sortField, $sortDir)
     {
-        $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) LIKE '%' || :search_string || '%'");
+        $sortField = $this->getValidSortField($sortField);
+        $sortDir = $sortDir == 'desc' ? "DESC" : "";
+        $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) LIKE '%' || :search_string || '%' ORDER BY $sortField $sortDir");
         $query->bindValue(":search_string", $searchString, PDO::PARAM_STR);
         $query->execute();
         $arr = array();
