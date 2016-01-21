@@ -24,31 +24,33 @@
         </form>
       </div>
       <?php if ($searchString != ""):?>
-      <div>
-        <p>Показаны только абитуриенты, найденные по запросу «<?=htmlspecialchars($searchString)?>». </p>
-        <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
-      </div>
+        <div>
+          <p>Показаны только абитуриенты, найденные по запросу «<?=htmlspecialchars($searchString)?>». </p>
+          <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
+        </div>
       <?php endif; ?>
       <div class="row row-centered" id="students_table">
         <div class="col-sm-8 col-centered">
           <table id="students" class="table">
             <tr>
               <th>
-                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'first_name', $sortDir, 1), ENT_QUOTES)?>">Имя</a>
+                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'first_name', $sortDir, 1), ENT_QUOTES)?>">
+                  Имя <?=getSortDirGlyph('first_name', $sortDir)?>
+                </a>
               </th>
               <th>
                 <a href="<?=htmlspecialchars(getSortingURL($searchString, 'last_name', $sortDir, 1), ENT_QUOTES)?>">
-                  Фамилия
+                  Фамилия <?=getSortDirGlyph('last_name', $sortDir)?>
                 </a>
               </th>
               <th>
                 <a href="<?=htmlspecialchars(getSortingURL($searchString, 'student_group', $sortDir, 1), ENT_QUOTES)?>">
-                  Номер группы
+                  Номер группы <?=getSortDirGlyph('student_group', $sortDir)?>
                 </a>
               </th>
               <th>
                 <a href="<?=htmlspecialchars(getSortingURL($searchString, 'mark', $sortDir, 1), ENT_QUOTES)?>">
-                  Баллов
+                  Баллов <?=getSortDirGlyph('mark', $sortDir)?>
                 </a>
               </th>
             </tr>

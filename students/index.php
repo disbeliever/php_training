@@ -13,6 +13,14 @@ function getSortingURL($search, $sort, $dir, $page)
            ]);
 }
 
+function getSortDirGlyph($sort, $dir)
+{
+    global $sortField;
+    if ($sort == $sortField) {
+        return $dir == 'desc' ? '&#8593;' : '&#8595;';
+    }
+}
+
 $searchString = isset($_GET['searchString']) ? $_GET['searchString'] : "";
 $sortField = isset($_GET['sort']) ? $_GET['sort'] : "id";
 $sortDir = isset($_GET['dir']) ? $_GET['dir'] : "";
