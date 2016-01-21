@@ -90,7 +90,7 @@ class StudentTableGateway
     {
         $sortField = $this->getValidSortField($sortField);
         $sortDir = $sortDir == 'desc' ? "DESC" : "";
-        $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) LIKE '%' || :search_string || '%' ORDER BY $sortField $sortDir");
+        $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) ILIKE '%' || :search_string || '%' ORDER BY $sortField $sortDir");
         $query->bindValue(":search_string", $searchString, PDO::PARAM_STR);
         $query->execute();
         $arr = array();
