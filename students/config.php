@@ -8,3 +8,5 @@ $DEBUG = TRUE;
 if ($DEBUG) {
     error_reporting(-1);
 }
+
+$studentsPerPage = 5;

@@ -3,9 +3,11 @@
 class StudentTableGateway
 {
     private $pdo;
-    public function __construct(PDO $pdo)
+    private $studentsPerPage;
+    public function __construct(PDO $pdo, $studentsPerPage)
     {
         $this->pdo = $pdo;
+        $this->studentsPerPage = $studentsPerPage;
     }
 
     public function addStudent(Student $student)
@@ -62,11 +64,11 @@ class StudentTableGateway
         return $order;
     }
 
-    public function getAllStudents($sortField, $sortDir)
+    public function getAllStudents($sortField, $sortDir, $page)
     {
         $sortField = $this->getValidSortField($sortField);
         $sortDir = $sortDir == 'desc' ? "DESC" : "";
-        $query = $this->pdo->prepare("SELECT * FROM students ORDER BY $sortField $sortDir");
+        $query = $this->pdo->prepare("SELECT * FROM students ORDER BY $sortField $sortDir LIMIT $this->studentsPerPage OFFSET " . $this->studentsPerPage * ($page-1));
         $query->execute();
 
         $students = array();
@@ -75,6 +77,13 @@ class StudentTableGateway
         }
 
         return $students;
+    }
+
+    public function getTotalStudentsNum()
+    {
+        $query = $this->pdo->query("SELECT COUNT(id) FROM students");
+        $count = $query->fetchColumn();
+        return $count;
     }
 
     public function isEmailInDB($email)
