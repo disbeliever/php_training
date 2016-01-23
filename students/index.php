@@ -45,7 +45,7 @@ else {
     $students = $STG->searchInDB($searchString, $sortField, $sortDir);
 }
 
-#$pager = new Pager($STG->getTotalStudentsNum() / $studentsPerPage + 1, $studentsPerPage, "{$_SERVER['SCRIPT_NAME']}?page={page}");
+$studentsPerPage = $config['studentsPerPage'];
 $pager = new Pager($STG->getTotalStudentsNum() / $studentsPerPage + 1, $studentsPerPage, getPagerURL($searchString, $sortField, $sortDir, "_page_"));
 
 include('views/ViewStudentsList.php');

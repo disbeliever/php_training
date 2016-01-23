@@ -1,12 +1,12 @@
 <?php
-$dbhost = "localhost";
-$dbname = "php_training";
-$dbuser = "php_training";
-$dbpass = "php_training";
+$config = array(
+    'dbtype' => 'pgsql',
+    'dbhost' => 'localhost',
+    'dbname' => 'php_training',
+    'dbuser' => 'php_training',
+    'dbpass' => 'php_training',
 
-$DEBUG = TRUE;
-if ($DEBUG) {
-    error_reporting(-1);
-}
+    'debug' => TRUE,
 
-$studentsPerPage = 5;
+    'studentsPerPage' => 5,
+);
