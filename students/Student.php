@@ -14,6 +14,7 @@ class Student
     public $birthyear;
     public $local;
     public $email;
+    public $auth;
 
     public function __construct()
     {
@@ -47,6 +48,7 @@ class Student
         $s->mark = $row['mark'];
         $s->birthyear = $row['birthyear'];
         $s->email = $row['email'];
+        $s->auth = $row['auth_code'];
 
         return $s;
     }

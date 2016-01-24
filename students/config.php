@@ -10,3 +10,5 @@ $config = array(
 
     'studentsPerPage' => 5,
 );
+
+const CONFIG_AUTH_LENGTH = 32;

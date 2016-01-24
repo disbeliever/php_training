@@ -49,7 +49,7 @@
 
           <div class="form-group <?=isset($errors['mark']) ? "has-error" : "" ?>">
             <label for="mark">Баллы</label>
-            <input class="form-control" name="mark" type="number" min="0" max="300" required value="<?=$student->mark?>"/>
+            <input class="form-control" name="mark" type="number" min="0" max="300" required value="<?=htmlspecialchars($student->mark)?>"/>
             <?php if(isset($errors['mark'])): ?>
               <label class="control-label"><?=$errors['mark']?></label>
             <?php endif; ?>

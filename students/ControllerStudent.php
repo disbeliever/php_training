@@ -12,6 +12,11 @@ function isEditable()
     return isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0;
 }
 
+function generateRandomString()
+{
+    return md5(rand());
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $registered = isset($_GET['registered']);
 $changesSaved = isset($_GET['changesSaved']);
@@ -29,7 +34,7 @@ if (isFormSent()) {
     $student = new Student();
     foreach (array_keys(get_object_vars($student)) as $field) {
         if (isset($_POST[$field])) {
-            $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : trim($_POST[$field]);
+            $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : trim(strval($_POST[$field]));
         }
     }
 
@@ -62,7 +67,9 @@ if (isFormSent()) {
             }
             else {
                 $redirectSuffix = "&registered=1";
+                $student->auth = generateRandomString();
                 $STG->addStudent($student);
+                setcookie('auth', $student->auth, time() + 10*365*24*60*60, '/', null, false, true);
             }
             $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}$redirectSuffix";
             header("Location: $redirectTo");
@@ -78,7 +85,10 @@ if (isFormSent()) {
    or create a new one. */
 else if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if ($id > 0) {
-        $student = $STG->getStudentById($id);
+        $student = $STG->getStudent($id);
+    }
+    else if (isset($_COOKIE['auth'])) {
+        $student = $STG->getStudent($_COOKIE['auth']);
     }
     else {
         $student = new Student();

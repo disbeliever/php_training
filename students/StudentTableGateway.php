@@ -12,7 +12,7 @@ class StudentTableGateway
 
     public function addStudent(Student $student)
     {
-        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark, email, gender, birthyear) VALUES(:first_name, :last_name, :student_group, :mark, :email, :gender, :birthyear) RETURNING id");
+        $query = $this->pdo->prepare("INSERT INTO students(first_name, last_name, student_group, mark, email, gender, birthyear, auth_code) VALUES(:first_name, :last_name, :student_group, :mark, :email, :gender, :birthyear, :auth_code) RETURNING id");
 
         $query->bindValue(":first_name", $student->firstName);
         $query->bindValue(":last_name", $student->lastName);
@@ -21,6 +21,7 @@ class StudentTableGateway
         $query->bindValue(":email", $student->email);
         $query->bindValue(":gender", $student->gender);
         $query->bindValue(":birthyear", $student->birthyear);
+        $query->bindValue(":auth_code", $student->auth);
         
         $query->execute();
         $student->id = $query->fetchColumn();
@@ -44,10 +45,17 @@ class StudentTableGateway
         $query->execute();
     }
 
-    public function getStudentById($id)
+    public function getStudent($key)
     {
-        $query = $this->pdo->prepare("SELECT * FROM students WHERE id=:id");
-        $query->bindValue(":id", $id);
+        if (is_string($key) && strlen($key) == CONFIG_AUTH_LENGTH) {
+            $query = $this->pdo->prepare("SELECT * FROM students WHERE auth_code=:auth_code");
+            $query->bindValue(":auth_code", $key);
+        }
+        else if (is_numeric($key)) {
+            $query = $this->pdo->prepare("SELECT * FROM students WHERE id=:id");
+            $query->bindValue(":id", $key);
+        }
+
         $query->execute();
         $row = $query->fetch();
 
