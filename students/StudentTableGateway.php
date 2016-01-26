@@ -29,11 +29,11 @@ class StudentTableGateway
 
     public function updateStudent(Student $student)
     {
-        $query_string = "UPDATE students SET first_name=:first_name,last_name=:last_name,student_group=:student_group,mark=:mark,email=:email,gender=:gender,birthyear=:birthyear WHERE id=:id";
+        $query_string = "UPDATE students SET first_name=:first_name,last_name=:last_name,student_group=:student_group,mark=:mark,email=:email,gender=:gender,birthyear=:birthyear WHERE auth_code=:auth";
 
         $query = $this->pdo->prepare($query_string);
 
-        $query->bindValue(":id", $student->id);
+        $query->bindValue(":auth", $student->auth);
         $query->bindValue(":first_name", $student->firstName);
         $query->bindValue(":last_name", $student->lastName);
         $query->bindValue(":student_group", $student->group);
@@ -94,10 +94,11 @@ class StudentTableGateway
         return $count;
     }
 
-    public function isEmailInDB($email)
+    public function isEmailInDB($student)
     {
-        $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email=:email");
-        $query->bindValue(":email", $email);
+        $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email=:email AND auth_code <> :auth_code");
+        $query->bindValue(":email", $student->email);
+        $query->bindValue(":auth_code", $student->auth);
         $query->execute();
         $count = $query->fetchColumn();
         return $count > 0;

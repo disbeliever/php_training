@@ -8,7 +8,8 @@ function isFormSent()
 
 function isEditable()
 {
-    return isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0;
+    return (isset($_POST['id']) && is_numeric($_POST['id']) && $_POST['id'] > 0) ||
+          (isset($_COOKIE['auth']) && $_COOKIE['auth'] != "");
 }
 
 function generateRandomString()
@@ -16,20 +17,8 @@ function generateRandomString()
     return md5(rand());
 }
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$registered = isset($_GET['registered']);
-$changesSaved = isset($_GET['changesSaved']);
-
-if ($registered) {
-    $succString = "Регистрация выполнена";
-}
-else if ($changesSaved) {
-    $succString = "Изменения сохранены";
-}
-
-/* if method is POST then fill a Student object with data from $_POST
-   and try to save it */
-if (isFormSent()) {
+function createStudentFromPostAndCookies()
+{
     $student = new Student();
     foreach (array_keys(get_object_vars($student)) as $field) {
         if (isset($_POST[$field])) {
@@ -54,6 +43,25 @@ if (isFormSent()) {
             }
         }
     }
+    $student->auth = isset($_COOKIE['auth']) ? $_COOKIE['auth'] : "";
+    return $student;
+}
+
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$registered = isset($_GET['registered']);
+$changesSaved = isset($_GET['changesSaved']);
+
+if ($registered) {
+    $succString = "Регистрация выполнена";
+}
+else if ($changesSaved) {
+    $succString = "Изменения сохранены";
+}
+
+/* if method is POST then fill a Student object with data from $_POST
+   and try to save it */
+if (isFormSent()) {
+    $student = CreateStudentFromPostAndCookies();
 
     $validator = new StudentValidator($STG);
     $errors = $validator->validate($student);
@@ -71,7 +79,6 @@ if (isFormSent()) {
                 setcookie('auth', $student->auth, time() + 10*365*24*60*60, '/', null, false, true);
             }
             $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}$redirectSuffix";
-            header("Location: $redirectTo");
         }
         catch (PDOException $e) {
             #TODO: actually do something here
@@ -95,7 +102,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "GET") {
 }
 
 if ($student != null) {
-    if (isset($student->id) && $student->id > 0) {
+    if ((isset($student->id) && $student->id > 0) || isset($_COOKIE['auth'])) {
         $title = "Студент: $student->firstName $student->lastName";
         $saveButtonText = "Сохранить изменения";
     }
