@@ -57,7 +57,7 @@
             <?php foreach ($students as $s): ?>
               <tr>
                 <td>
-                  <a href="/ControllerStudent.php?id=<?=$s->id?>">
+                  <a href="ControllerStudent.php?id=<?=$s->id?>">
                     <?=htmlspecialchars($s->firstName)?>
                   </a>
                 </td>

@@ -11,7 +11,7 @@
   <body>
     <div class="container-fluid">
       <nav>
-        <a href="/index.php">Список абитуриентов</a>
+        <a href="index.php">Список абитуриентов</a>
       </nav>
       <?php if(isset($succString) && $succString != ""): ?>
         <div class="alert alert-success"><?=$succString?></div>

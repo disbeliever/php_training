@@ -11,7 +11,7 @@
   <body>
     <div class="container-fluid">
       <h1><?=$errString?></h1>
-      <a href="/index.php">Вернуться к списку абитуриентов</a>
+      <a href="index.php">Вернуться к списку абитуриентов</a>
     </div>
   </body>
 </html>
