@@ -13,11 +13,12 @@
       <nav>
         <a href="index.php">Список абитуриентов</a>
       </nav>
-      <?php if(isset($succString) && $succString != ""): ?>
-        <div class="alert alert-success"><?=$succString?></div>
+      <?php if(isset($msg['class']) && isset($msg['text'])): ?>
+        <div class="alert alert-<?=$msg['class']?>"><?=$msg['text']?></div>
       <?php endif; ?>
       <div id="register_form">
         <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="POST" role="form">
+          <input name="csrfToken" type="hidden" value="<?=htmlspecialchars($token, ENT_QUOTES) ?>"/>
 
           <?php if ($id > 0): ?>
             <input name="id" type="hidden" value="<?=$id?>"/>
