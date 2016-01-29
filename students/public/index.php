@@ -1,5 +1,5 @@
 <?php
-require_once('init.php');
+require_once('../src/init.php');
 
 function getQueryArray($search, $sort, $dir, $page)
 {
@@ -48,4 +48,4 @@ else {
 $studentsPerPage = $config['studentsPerPage'];
 $pager = new Pager($STG->getTotalStudentsNum() / $studentsPerPage + 1, $studentsPerPage, getPagerURL($searchString, $sortField, $sortDir, "_page_"));
 
-include('views/ViewStudentsList.php');
+include('../src/views/ViewStudentsList.php');

@@ -1,6 +1,6 @@
 <?php
-require_once('init.php');
-require_once('registerHelpers.php');
+require_once('../src/init.php');
+require_once('../src/registerHelpers.php');
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $registered = isset($_GET['registered']);
@@ -72,10 +72,10 @@ if ($student != null) {
         $title = "Регистрация";
         $saveButtonText = "Зарегистрироваться";
     }
-    include('views/ViewStudent.php');
+    include('../src/views/ViewStudent.php');
 }
 else {
     header("HTTP/1.0 404 Student not found");
     $errString = "Абитуриент с id=$id не найден";
-    include('views/404.php');
+    include('../src/views/404.php');
 }
