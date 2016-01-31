@@ -12,7 +12,9 @@ CREATE TABLE students
   auth_code character varying(32),
   birthyear integer,
   CONSTRAINT students_pkey PRIMARY KEY (id),
-  CONSTRAINT students_email_key UNIQUE (email)
+  CONSTRAINT students_email_key UNIQUE (email),
+  CONSTRAINT students_birthyear_check CHECK (birthyear >= 1900 AND birthyear <= 2000),
+  CONSTRAINT students_mark_check CHECK (mark >= 0 AND mark <= 300)
 )
 WITH (
   OIDS=FALSE
