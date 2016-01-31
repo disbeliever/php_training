@@ -3,10 +3,10 @@
 
   <head>
     <title>Список студентов</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -18,7 +18,7 @@
           <div class="form-group">
             <button class="btn"><a href="ControllerStudent.php">Регистрация</a></button>
             <label for="searchString">Поиск:</label>
-            <input name="searchString" type="text" class="form-control" value="" maxlength="200"/>
+            <input name="searchString" type="text" class="form-control" value="" maxlength="200">
           </div>
           <button class="btn btn-default" type="submit">Найти</button>
         </form>

@@ -1,10 +1,10 @@
 <?php
 class StudentValidator
 {
-    private $STG;
-    public function __construct(StudentTableGateway $STG)
+    private $stg;
+    public function __construct(StudentTableGateway $stg)
     {
-        $this->STG = $STG;
+        $this->stg = $stg;
     }
 
     private static function validateNotEmptyAndMaxLength($fieldValue, $fieldName, $maxLength)
@@ -29,7 +29,7 @@ class StudentValidator
 
     private static function validateGroupNumber($fieldValue, $maxLength)
     {
-        if (!$fieldValue || mb_strlen($fieldValue) > 5 || !ctype_alnum($fieldValue)) {
+        if (!$fieldValue || mb_strlen($fieldValue) > $maxLength || !ctype_alnum($fieldValue)) {
             return "Номер группы должен содержать только буквы и цифры (не более $maxLength символов)";
         }
     }

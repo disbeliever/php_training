@@ -23,19 +23,19 @@ if (isFormSent()) {
         $msg = ["class" => "danger", "text" => "Ошибка CSRF токена"];
     }
     else {
-        $validator = new StudentValidator($STG);
+        $validator = new StudentValidator($stg);
         $errors = $validator->validate($student);
 
         if (count($errors) == 0) {
             try {
                 if (isEditable()) {
                     $redirectSuffix = "&changesSaved=1";
-                    $STG->updateStudent($student);
+                    $stg->updateStudent($student);
                 }
                 else {
                     $redirectSuffix = "&registered=1";
                     $student->auth = generateRandomString();
-                    $STG->addStudent($student);
+                    $stg->addStudent($student);
                     setcookie('auth', $student->auth, time() + 10*365*24*60*60, '/', null, false, true);
                 }
                 $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}$redirectSuffix";
@@ -53,10 +53,10 @@ if (isFormSent()) {
    or create a new one. */
 else if ($_SERVER['REQUEST_METHOD'] == "GET") {
     if ($id > 0) {
-        $student = $STG->getStudent($id);
+        $student = $stg->getStudent($id);
     }
     else if (isset($_COOKIE['auth'])) {
-        $student = $STG->getStudent($_COOKIE['auth']);
+        $student = $stg->getStudent($_COOKIE['auth']);
     }
     else {
         $student = new Student();

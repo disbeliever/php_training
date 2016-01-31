@@ -27,11 +27,11 @@ function createStudentFromPostAndCookies()
     if (isset($_POST['gender'])) {
         switch($_POST['gender'])
         {
-            case 'male': {
+            case Student::GENDER_MALE: {
                 $student->gender = Student::GENDER_MALE;
                 break;
             }
-            case 'female': {
+            case Student::GENDER_FEMALE: {
                 $student->gender = Student::GENDER_FEMALE;
                 break;
             }
