@@ -34,23 +34,23 @@
           <table id="students" class="table">
             <tr>
               <th>
-                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'first_name', $sortDir, $page), ENT_QUOTES)?>">
-                  Имя <?=getSortDirGlyph('first_name', $sortDir)?>
+                <a href="<?=htmlspecialchars(UrlHelper::getSortingURL($searchString, 'first_name', $sortDir, $page, $sortField), ENT_QUOTES)?>">
+                  Имя <?=UrlHelper::getSortDirGlyph('first_name', $sortDir, $sortField)?>
                 </a>
               </th>
               <th>
-                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'last_name', $sortDir, $page), ENT_QUOTES)?>">
-                  Фамилия <?=getSortDirGlyph('last_name', $sortDir)?>
+                <a href="<?=htmlspecialchars(UrlHelper::getSortingURL($searchString, 'last_name', $sortDir, $page, $sortField), ENT_QUOTES)?>">
+                  Фамилия <?=UrlHelper::getSortDirGlyph('last_name', $sortDir, $sortField)?>
                 </a>
               </th>
               <th>
-                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'student_group', $sortDir, $page), ENT_QUOTES)?>">
-                  Номер группы <?=getSortDirGlyph('student_group', $sortDir)?>
+                <a href="<?=htmlspecialchars(UrlHelper::getSortingURL($searchString, 'student_group', $sortDir, $page, $sortField), ENT_QUOTES)?>">
+                  Номер группы <?=UrlHelper::getSortDirGlyph('student_group', $sortDir, $sortField)?>
                 </a>
               </th>
               <th>
-                <a href="<?=htmlspecialchars(getSortingURL($searchString, 'mark', $sortDir, $page), ENT_QUOTES)?>">
-                  Баллов <?=getSortDirGlyph('mark', $sortDir)?>
+                <a href="<?=htmlspecialchars(UrlHelper::getSortingURL($searchString, 'mark', $sortDir, $page, $sortField), ENT_QUOTES)?>">
+                  Баллов <?=UrlHelper::getSortDirGlyph('mark', $sortDir, $sortField)?>
                 </a>
               </th>
             </tr>
