@@ -18,7 +18,8 @@ function generateRandomString()
 function createStudentFromPostAndCookies()
 {
     $student = new Student();
-    foreach (array_keys(get_object_vars($student)) as $field) {
+    $fieldsForEdit = array('firstName', 'lastName', 'group', 'mark', 'gender', 'birthyear', 'email');
+    foreach ($fieldsForEdit as $field) {
         if (isset($_POST[$field])) {
             $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : trim(strval($_POST[$field]));
         }
@@ -56,7 +57,6 @@ function getOrGenerateCSRFToken()
         $token = $_COOKIE['csrf'];
     }
     else {
-        var_dump("set new token");
         setCSRFToken($token = generateRandomString());
     }
     return $token;

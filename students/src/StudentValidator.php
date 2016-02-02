@@ -52,7 +52,7 @@ class StudentValidator
         else if (!(preg_match("/.+@.+\..+/i", $email) == 1)) {
             return "Укажите корректный E-mail (вида user@domain.suf)";
         }
-        else if ($this->STG->isEmailInDB($student)) {
+        else if ($this->stg->isEmailInDB($student)) {
             return "Этот E-mail уже присутствует в базе данных";
         }
     }

@@ -14,6 +14,10 @@ else {
 }
 
 $studentsPerPage = $config['studentsPerPage'];
-$pager = new Pager($stg->getTotalStudentsNum() / $studentsPerPage + 1, $studentsPerPage, UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "_page_"));
+$pager = new Pager(
+    $stg->getTotalStudentsNum() / $studentsPerPage + 1,
+    $studentsPerPage,
+    UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "_page_")
+);
 
 include('../src/views/ViewStudentsList.php');

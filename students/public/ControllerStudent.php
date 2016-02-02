@@ -20,7 +20,7 @@ if (isFormSent()) {
 
     $student = CreateStudentFromPostAndCookies();
     if (!(isCSRFTokenSet() && isFormTokenSet() && $_COOKIE['csrf'] == $_POST['csrfToken'])) {
-        $msg = ["class" => "danger", "text" => "Ошибка CSRF токена"];
+        $msg = ["class" => "danger", "text" => "Ошибка. Попробуйте сохранить данные ещё раз"];
     }
     else {
         $validator = new StudentValidator($stg);

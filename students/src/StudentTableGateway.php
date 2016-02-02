@@ -4,6 +4,7 @@ class StudentTableGateway
 {
     private $pdo;
     private $studentsPerPage;
+    const CONFIG_AUTH_LENGTH = 32;
     public function __construct(PDO $pdo, $studentsPerPage)
     {
         $this->pdo = $pdo;
@@ -47,7 +48,7 @@ class StudentTableGateway
 
     public function getStudent($key)
     {
-        if (is_string($key) && strlen($key) == CONFIG_AUTH_LENGTH) {
+        if (is_string($key) && strlen($key) == self::CONFIG_AUTH_LENGTH) {
             $query = $this->pdo->prepare("SELECT * FROM students WHERE auth_code=:auth_code");
             $query->bindValue(":auth_code", $key);
         }
@@ -111,11 +112,11 @@ class StudentTableGateway
         $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) ILIKE '%' || :search_string || '%' ORDER BY $sortField $sortDir");
         $query->bindValue(":search_string", $searchString, PDO::PARAM_STR);
         $query->execute();
-        $arr = array();
+        $result = array();
         while ($row = $query->fetch()) {
-            $arr[] = Student::fromRow($row);
+            $result[] = Student::fromRow($row);
         }
 
-        return $arr;
+        return $result;
     }
 }
