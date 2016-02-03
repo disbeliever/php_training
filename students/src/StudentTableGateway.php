@@ -73,11 +73,13 @@ class StudentTableGateway
         return $order;
     }
 
-    public function getAllStudents($sortField, $sortDir, $page)
+    public function getAllStudents($sortField, $sortDir, $limit, $offset)
     {
         $sortField = $this->getValidSortField($sortField);
         $sortDir = $sortDir == 'desc' ? "DESC" : "";
-        $query = $this->pdo->prepare("SELECT * FROM students ORDER BY $sortField $sortDir LIMIT $this->studentsPerPage OFFSET " . $this->studentsPerPage * ($page-1));
+        $query = $this->pdo->prepare("SELECT * FROM students ORDER BY $sortField $sortDir LIMIT :limit OFFSET :offset");
+        $query->bindValue(":limit", $limit);
+        $query->bindValue(":offset", $offset);
         $query->execute();
 
         $students = array();

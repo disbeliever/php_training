@@ -7,7 +7,12 @@ $sortDir = isset($_GET['dir']) ? $_GET['dir'] : "desc";
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 if ($searchString == "") {
-    $students = $stg->getAllStudents($sortField, $sortDir, $page);
+    $students = $stg->getAllStudents(
+        $sortField,
+        $sortDir,
+        $config['studentsPerPage'],
+        $config['studentsPerPage'] * ($page-1)
+    );
 }
 else {
     $students = $stg->searchInDB($searchString, $sortField, $sortDir);
