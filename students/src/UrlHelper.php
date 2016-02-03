@@ -2,21 +2,19 @@
 class UrlHelper
 {
     private static $scriptName = "index.php";
-    private static function getQueryArray($search, $sort, $dir, $page)
-    {
-        return [
-            'searchString' => $search,
-            'sort' => $sort,
-            'dir' => $dir,
-            'page' => $page
-        ];
-    }
 
     static function getSortingURL($search, $sort, $dir, $page, $currentSortField)
     {
         $dir = $currentSortField == $sort && $dir == "asc" ? "desc" : "asc";
         return self::$scriptName . "?" .
-                     http_build_query(self::getQueryArray($search, $sort, $dir, $page));
+                     http_build_query(
+                         [
+                             'searchString' => $search,
+                             'sort' => $sort,
+                             'dir' => $dir,
+                             'page' => $page
+                         ]
+                     );
     }
 
     static function getSortDirGlyph($sort, $dir, $currentSortField)
@@ -36,6 +34,11 @@ class UrlHelper
     static function getPagerURL($search, $sort, $dir, $page)
     {
         return self::$scriptName . "?" .
-                     http_build_query(self::getQueryArray($search, $sort, $dir, $page));
+                     http_build_query(
+                         [
+                             'searchString' => $search,
+                             'sort' => $sort,
+                             'dir' => $dir,
+                         ]) . "&page={page}";
     }
 }

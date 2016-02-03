@@ -18,6 +18,6 @@ class Pager
 
     public function getLinkForPage($page)
     {
-        return str_replace("_page_", $page, $this->urlTemplate);
+        return str_replace("{page}", $page, $this->urlTemplate);
     }
 }
