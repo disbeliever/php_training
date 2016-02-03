@@ -67,9 +67,9 @@ class StudentTableGateway
 
     private function getValidSortField($field)
     {
+        // if $field in $orders, then use it to sort, otherwise use id
         $orders = array("id", "first_name", "last_name", "student_group", "mark");
-        $key = array_search($field, $orders);
-        $order = $orders[$key];
+        $order = in_array($field, $orders) ? $field : "id";
         return $order;
     }
 
