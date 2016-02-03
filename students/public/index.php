@@ -22,7 +22,7 @@ $studentsPerPage = $config['studentsPerPage'];
 $pager = new Pager(
     $stg->getTotalStudentsNum() / $studentsPerPage + 1,
     $studentsPerPage,
-    UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "_page_")
+    UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "{page}")
 );
 
 include('../src/views/ViewStudentsList.php');

@@ -39,6 +39,6 @@ class UrlHelper
                              'searchString' => $search,
                              'sort' => $sort,
                              'dir' => $dir,
-                         ]) . "&page={page}";
+                         ]) . "&page=$page";
     }
 }
