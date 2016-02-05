@@ -15,9 +15,8 @@ function generateRandomString()
     return md5(rand());
 }
 
-function createStudentFromPostAndCookies()
+function updateStudentFromPostAndCookies($student)
 {
-    $student = new Student();
     $fieldsForEdit = array('firstName', 'lastName', 'group', 'mark', 'gender', 'birthyear', 'email');
     foreach ($fieldsForEdit as $field) {
         if (isset($_POST[$field])) {

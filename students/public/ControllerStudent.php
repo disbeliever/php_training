@@ -17,8 +17,13 @@ else if ($changesSaved) {
 /* if method is POST then fill a Student object with data from $_POST
    and try to save it */
 if (isFormSent()) {
+    if (isset($_COOKIE['auth'])) {
+        $student = $stg->getStudent($_COOKIE['auth']);
+    } else {
+        $student = new Student();
+    }
+    updateStudentFromPostAndCookies($student);
 
-    $student = CreateStudentFromPostAndCookies();
     if (!(isCSRFTokenSet() && isFormTokenSet() && $_COOKIE['csrf'] == $_POST['csrfToken'])) {
         $msg = ["class" => "danger", "text" => "Ошибка. Попробуйте сохранить данные ещё раз"];
     }
