@@ -69,13 +69,15 @@
           </table>
         </div>
       </div>
+      <?php if ($pager->getTotalPages() > 1): ?>
       <div class="row row-centered">
         <ul class="pagination">
           <?php for ($i=1;$i < $pager->getTotalPages();$i++): ?>
-          <li><a href="<?=$pager->getLinkForPage($i)?>"><?=$i?></a></li>
+          <li <?=$i==$page ? 'class="active"' : ""?>><a href="<?=$pager->getLinkForPage($i)?>"><?=$i?></a></li>
           <?php endfor; ?>
         </ul>
       </div>
+      <?php endif; ?>
     </div>
   </body>
 </html>
