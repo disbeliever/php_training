@@ -16,7 +16,7 @@
       <div class="row row-centered" id="search_form">
         <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET" class="form-inline">
           <div class="form-group">
-            <button class="btn"><a href="ControllerStudent.php">Регистрация</a></button>
+            <button class="btn"><a href="student.php">Регистрация</a></button>
             <label for="searchString">Поиск:</label>
             <input name="searchString" type="text" class="form-control" value="" maxlength="200">
           </div>
@@ -57,7 +57,7 @@
             <?php foreach ($students as $s): ?>
               <tr>
                 <td>
-                  <a href="ControllerStudent.php?id=<?=$s->id?>">
+                  <a href="student.php?id=<?=$s->id?>">
                     <?=htmlspecialchars($s->firstName)?>
                   </a>
                 </td>
