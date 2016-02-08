@@ -11,7 +11,7 @@ class ControllerStudent
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         $registered = isset($_GET['registered']);
         $changesSaved = isset($_GET['changesSaved']);
-        $token = getOrGenerateCSRFToken();
+        $token = TokenHelper::getOrGenerateCSRFToken();
 
         if ($registered) {
             $msg = ["class" => "success", "text" => "Регистрация выполнена"];
@@ -22,15 +22,15 @@ class ControllerStudent
 
         /* if method is POST then load Student from DB, update it with data
            from $_POST and try to save it */
-        if (isFormSent()) {
+        if (FormHelper::isFormSent()) {
             if (isset($_COOKIE['auth'])) {
                 $student = $this->stg->getStudent($_COOKIE['auth']);
             } else {
                 $student = new Student();
             }
-            updateStudentFromPostAndCookies($student);
+            StudentHelper::updateStudentFromPostAndCookies($student);
 
-            if (!(isCSRFTokenSet() && isFormTokenSet() && $_COOKIE['csrf'] == $_POST['csrfToken'])) {
+            if (!TokenHelper::isCSRFTokenSetAndValid()) {
                 $msg = ["class" => "danger", "text" => "Ошибка. Попробуйте сохранить данные ещё раз"];
             }
             else {
@@ -38,7 +38,7 @@ class ControllerStudent
                 $errors = $validator->validate($student);
 
                 if (count($errors) == 0) {
-                    if (isEditable()) {
+                    if (FormHelper::isEditable()) {
                         $redirectSuffix = "&changesSaved=1";
                         $this->stg->updateStudent($student);
                     }
