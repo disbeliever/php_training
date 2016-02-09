@@ -29,7 +29,11 @@ class StudentValidator
 
     private static function validateGroupNumber($fieldValue, $maxLength)
     {
-        if (!$fieldValue || mb_strlen($fieldValue) > $maxLength || !ctype_alnum($fieldValue)) {
+        if (!$fieldValue) {
+            return "Укажите номер группы";
+        }
+        else if (!$fieldValue || mb_strlen($fieldValue) > $maxLength ||
+            preg_match('/[a-zA-Zа-яА-Я0-9]+/', $fieldValue) != 1) {
             return "Номер группы должен содержать только буквы и цифры (не более $maxLength символов)";
         }
     }
