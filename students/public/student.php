@@ -1,6 +1,5 @@
 <?php
 require_once('../src/init.php');
-require_once('../src/registerHelpers.php');
 
 $app = new ControllerStudent($stg);
 
