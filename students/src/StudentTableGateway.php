@@ -4,7 +4,7 @@ class StudentTableGateway
 {
     private $pdo;
     private $studentsPerPage;
-    const CONFIG_AUTH_LENGTH = 32;
+    const AUTH_LENGTH = 32;
     public function __construct(PDO $pdo, $studentsPerPage)
     {
         $this->pdo = $pdo;
@@ -46,15 +46,11 @@ class StudentTableGateway
         $query->execute();
     }
 
-    public function getStudent($key)
+    public function getStudentByAuthToken($token)
     {
-        if (is_string($key) && strlen($key) == self::CONFIG_AUTH_LENGTH) {
+        if (is_string($token) && strlen($token) == self::AUTH_LENGTH) {
             $query = $this->pdo->prepare("SELECT * FROM students WHERE auth_code=:auth_code");
-            $query->bindValue(":auth_code", $key);
-        }
-        else if (is_numeric($key)) {
-            $query = $this->pdo->prepare("SELECT * FROM students WHERE id=:id");
-            $query->bindValue(":id", $key);
+            $query->bindValue(":auth_code", $token);
         }
 
         $query->execute();
@@ -65,9 +61,21 @@ class StudentTableGateway
         }
     }
 
+    public function getStudentById($id)
+    {
+        $query = $this->pdo->prepare("SELECT * FROM students WHERE id=:id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+        $row = $query->fetch();
+
+        if ($row) {
+            return Student::fromRow($row);
+        }
+    }
+
     private function getValidSortField($field)
     {
-        // if $field in $orders, then use it to sort, otherwise use id
+        // if $field is in $orders, then use it to sort, otherwise use id
         $orders = array("id", "first_name", "last_name", "student_group", "mark");
         $order = in_array($field, $orders) ? $field : "id";
         return $order;

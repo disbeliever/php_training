@@ -24,7 +24,7 @@ class ControllerStudent
            from $_POST and try to save it */
         if (FormHelper::isFormSent()) {
             if (isset($_COOKIE['auth'])) {
-                $student = $this->stg->getStudent($_COOKIE['auth']);
+                $student = $this->stg->getStudentByAuthToken($_COOKIE['auth']);
             } else {
                 $student = new Student();
             }
@@ -48,7 +48,7 @@ class ControllerStudent
                         $this->stg->addStudent($student);
                         setcookie('auth', $student->auth, time() + 10*365*24*60*60, '/', null, false, true);
                     }
-                    $redirectTo = "{$_SERVER['SCRIPT_NAME']}?id={$student->id}$redirectSuffix";
+                    $redirectTo = "student.php?id={$student->id}$redirectSuffix";
                     header("Location: $redirectTo");
                 }
             }
@@ -57,10 +57,10 @@ class ControllerStudent
            or create a new one. */
         else if ($_SERVER['REQUEST_METHOD'] == "GET") {
             if ($id > 0) {
-                $student = $this->stg->getStudent($id);
+                $student = $this->stg->getStudentById($id);
             }
             else if (isset($_COOKIE['auth'])) {
-                $student = $this->stg->getStudent($_COOKIE['auth']);
+                $student = $this->stg->getStudentByAuthToken($_COOKIE['auth']);
             }
             else {
                 $student = new Student();

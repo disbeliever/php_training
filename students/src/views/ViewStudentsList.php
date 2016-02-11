@@ -14,7 +14,7 @@
       <div class="row">
       </div>
       <div class="row row-centered" id="search_form">
-        <form action="<?= $_SERVER['SCRIPT_NAME'] ?>" method="GET" class="form-inline">
+        <form action="index.php" method="GET" class="form-inline">
           <div class="form-group">
             <button class="btn"><a href="student.php">Регистрация</a></button>
             <label for="searchString">Поиск:</label>
@@ -26,7 +26,7 @@
       <?php if ($searchString != ""):?>
         <div>
           <p>Показаны только абитуриенты, найденные по запросу «<?=htmlspecialchars($searchString)?>». </p>
-          <p><a href="<?=$_SERVER['SCRIPT_NAME']?>">[Показать всех абитуриентов]</a></p>
+          <p><a href="index.php">[Показать всех абитуриентов]</a></p>
         </div>
       <?php endif; ?>
       <div class="row row-centered" id="students_table">

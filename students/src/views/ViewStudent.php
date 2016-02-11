@@ -17,7 +17,7 @@
         <div class="alert alert-<?=$msg['class']?>"><?=$msg['text']?></div>
       <?php endif; ?>
       <div id="register_form">
-        <form action="<?=$_SERVER['SCRIPT_NAME']?>" method="POST" role="form">
+        <form action="student.php" method="POST" role="form">
           <input name="csrfToken" type="hidden" value="<?=htmlspecialchars($token, ENT_QUOTES) ?>">
 
           <?php if ($id > 0): ?>
