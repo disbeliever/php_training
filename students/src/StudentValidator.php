@@ -20,6 +20,19 @@ class StudentValidator
         }
     }
 
+    private static function validateName($fieldValue, $fieldName, $maxLength)
+    {
+        if (!$fieldValue) {
+            return "Заполните поле '$filedName'";
+        }
+        else if (preg_match('/^[а-яА-ЯёЁ`\-\']+$/u', $fieldValue) != 1) {
+            return "Поле может содержать только русские буквы, апостроф и дефис";
+        }
+        else {
+            return self::validateNotEmptyAndMaxLength($fieldValue, $fieldName, $maxLength);
+        }
+    }
+
     private static function validateNumberWihtLimits($fieldValue, $min, $max)
     {
         if (!is_numeric($fieldValue) || $fieldValue < $min || $fieldValue > $max) {
@@ -33,7 +46,7 @@ class StudentValidator
             return "Укажите номер группы";
         }
         else if (!$fieldValue || mb_strlen($fieldValue) > $maxLength ||
-            preg_match('/^[a-zA-Zа-яА-Я0-9]+$/', $fieldValue) != 1) {
+            preg_match('/^[a-zA-Zа-яА-ЯёЁ0-9]+$/u', $fieldValue) != 1) {
             return "Номер группы должен содержать только буквы и цифры (не более $maxLength символов)";
         }
     }
@@ -53,7 +66,7 @@ class StudentValidator
         else if (mb_strlen($email) > 254) {
             return "Длина E-mail не может превышать 254 символов";
         }
-        else if (!(preg_match("/.+@.+\..+/i", $email) == 1)) {
+        else if (preg_match("/.+@.+\..+/i", $email) != 1) {
             return "Укажите корректный E-mail (вида user@domain.suf)";
         }
         else if ($this->stg->isEmailInDB($student)) {
@@ -64,8 +77,8 @@ class StudentValidator
     public function validate(Student $student)
     {
         $errors = array();
-        $errors['firstName'] = self::validateNotEmptyAndMaxLength($student->firstName, "имя", 90);
-        $errors['lastName'] = self::validateNotEmptyAndMaxLength($student->lastName, "фамилия", 90);
+        $errors['firstName'] = self::validateName($student->firstName, "имя", 90);
+        $errors['lastName'] = self::validateName($student->lastName, "фамилия", 90);
         $errors['group'] = self::validateGroupNumber($student->group, 5);
         $errors['mark'] = self::validateNumberWihtLimits($student->mark, 0, 300);
         $errors['gender'] = self::validateGender($student->gender);

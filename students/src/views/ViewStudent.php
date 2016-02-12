@@ -29,12 +29,12 @@
             <?php if(isset($errors['firstName'])): ?>
               <label class="control-label"><?=$errors['firstName']?></label>
             <?php endif; ?>
-            <input class="form-control" name="firstName" type="text" maxlength="200" required value="<?=htmlspecialchars($student->firstName)?>">
+            <input class="form-control" name="firstName" type="text" maxlength="90" required value="<?=htmlspecialchars($student->firstName)?>">
           </div>
 
           <div class="form-group <?=isset($errors['lastName']) ? "has-error" : "" ?>">
             <label for="lastName">Фамилия</label>
-            <input class="form-control" name="lastName" type="text" maxlength="200" required value="<?=htmlspecialchars($student->lastName)?>">
+            <input class="form-control" name="lastName" type="text" maxlength="90" required value="<?=htmlspecialchars($student->lastName)?>">
             <?php if(isset($errors['lastName'])): ?>
               <label class="control-label"><?=$errors['lastName']?></label>
             <?php endif; ?>
