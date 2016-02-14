@@ -31,7 +31,10 @@ class ControllerStudent
             StudentHelper::updateStudentFromPostAndCookies($student);
 
             if (!TokenHelper::isCSRFTokenSetAndValid()) {
-                $msg = ["class" => "danger", "text" => "Ошибка. Попробуйте сохранить данные ещё раз"];
+                $msg = [
+                    "class" => "danger",
+                    "text" => "Ошибка. Попробуйте сохранить данные ещё раз"
+                ];
             }
             else {
                 $validator = new StudentValidator($this->stg);
@@ -44,7 +47,7 @@ class ControllerStudent
                     }
                     else {
                         $redirectSuffix = "&registered=1";
-                        $student->auth = generateRandomString();
+                        $student->auth = TokenHelper::generateToken();
                         $this->stg->addStudent($student);
                         setcookie('auth', $student->auth, time() + 10*365*24*60*60, '/', null, false, true);
                     }

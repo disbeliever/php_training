@@ -1,9 +1,16 @@
 <?php
 class TokenHelper
 {
+    const AUTH_TOKEN_LENGTH = 32;
     public static function generateToken()
     {
-        return md5(rand());
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < self::AUTH_TOKEN_LENGTH; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
     public static function getOrGenerateCSRFToken()
@@ -17,7 +24,7 @@ class TokenHelper
         return $token;
     }
 
-    
+
     private static function isCSRFTokenSet()
     {
         return isset($_COOKIE['csrf']) && $_COOKIE['csrf'] != "";
