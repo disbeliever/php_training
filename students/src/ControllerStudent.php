@@ -37,6 +37,7 @@ class ControllerStudent
                 ];
             }
             else {
+                TokenHelper::setCSRFToken($token);
                 $validator = new StudentValidator($this->stg);
                 $errors = $validator->validate($student);
 
