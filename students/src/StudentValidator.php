@@ -12,11 +12,14 @@ class StudentValidator
         if ($fieldValue == "") {
             return "Поле '$fieldName' не должно быть пустым";
         }
-        else if (($length = mb_strlen($fieldValue)) > $maxLength) {
-            return "Максимальное количество символов в поле '$fieldName' - $maxLength (вы ввели $length)";
-        }
         else {
-            return null;
+            $strLength = mb_strlen($fieldValue);
+            if ($strLength > $maxLength) {
+                return "Максимальное количество символов в поле '$fieldName' - $maxLength (вы ввели $strLength)";
+            }
+            else {
+                return null;
+            }
         }
     }
 
