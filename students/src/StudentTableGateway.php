@@ -46,11 +46,11 @@ class StudentTableGateway
         $query->execute();
     }
 
-    public function getStudentByAuthToken($token)
+    public function getStudentByAuthToken($authToken)
     {
-        if (is_string($token) && strlen($token) == self::AUTH_LENGTH) {
+        if (is_string($authToken) && strlen($authToken) == self::AUTH_LENGTH) {
             $query = $this->pdo->prepare("SELECT * FROM students WHERE auth_code=:auth_code");
-            $query->bindValue(":auth_code", $token);
+            $query->bindValue(":auth_code", $authToken);
         }
 
         $query->execute();
@@ -128,5 +128,14 @@ class StudentTableGateway
         }
 
         return $result;
+    }
+
+    public function doStudentExists($authToken)
+    {
+        $query = $this->pdo->prepare("SELECT COUNT(id) FROM students WHERE auth_code = :auth_code");
+        $query->bindValue(":auth_code", $authToken);
+        $query->execute();
+        $count = $query->fetchColumn();
+        return $count > 0;
     }
 }

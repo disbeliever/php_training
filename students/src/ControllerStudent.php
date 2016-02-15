@@ -72,7 +72,8 @@ class ControllerStudent
         }
 
         if ($student != null) {
-            if ((isset($student->id) && $student->id > 0) || isset($_COOKIE['auth'])) {
+            if ((isset($student->id) && $student->id > 0) ||
+                (isset($_COOKIE['auth']) && $this->stg->doStudentExists($_COOKIE['auth']))) {
                 $title = "Студент: $student->firstName $student->lastName";
                 $saveButtonText = "Сохранить изменения";
             }
