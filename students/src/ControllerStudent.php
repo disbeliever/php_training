@@ -72,6 +72,13 @@ class ControllerStudent
         }
 
         if ($student != null) {
+            if ($student->auth != $_COOKIE['auth']) {
+                header("HTTP/1.0 403 Access denied");
+                $errString = "Нет доступа";
+                include('../src/views/404.php');
+                return;
+            }
+
             if ((isset($student->id) && $student->id > 0) ||
                 (isset($_COOKIE['auth']) && $this->stg->doStudentExists($_COOKIE['auth']))) {
                 $title = "Студент: $student->firstName $student->lastName";
