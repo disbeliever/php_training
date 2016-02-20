@@ -1,8 +1,7 @@
-<?php include 'top.phtml' ?>
-<div class="container">
+{% extends "base.html" %}
+{% block content %}
   <ul>
     <li><a href="/file/1">file1</a></li>
     <li><a href="/file/2">file2</a></li>
   </ul>
-</div>
-<?php include 'bottom.phtml' ?>
+{% endblock %}
