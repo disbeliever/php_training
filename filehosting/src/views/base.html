@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+    <title>Filehosting &mdash; Last files</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li{% block li_menu_index %}{% endblock %}>
+            <a href="/">Главная</a>
+          </li>
+          <li{% block li_menu_last %}{% endblock %}>
+            <a href="/last/">Последние файлы</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
