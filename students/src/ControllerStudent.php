@@ -75,7 +75,7 @@ class ControllerStudent
             if ($student->auth != $_COOKIE['auth']) {
                 header("HTTP/1.0 403 Access denied");
                 $errString = "Нет доступа";
-                include('../src/views/404.php');
+                include('../src/views/Error.php');
                 return;
             }
 
@@ -93,7 +93,7 @@ class ControllerStudent
         else {
             header("HTTP/1.0 404 Student not found");
             $errString = "Абитуриент с id=$id не найден";
-            include('../src/views/404.php');
+            include('../src/views/Error.php');
         }
 
     }

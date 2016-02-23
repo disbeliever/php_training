@@ -9,6 +9,6 @@ try {
 catch(Exception $e) {
     $errString = "Упс, что-то пошло не так :(";
     header("{$_SERVER['SERVER_PROTOCOL']} 503 Sorry about the mess");
-    include('../src/views/404.php');
+    include('../src/views/Error.php');
     error_log($e);
 }
