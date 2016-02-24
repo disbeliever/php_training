@@ -105,7 +105,7 @@ class StudentTableGateway
         return $count;
     }
 
-    public function isEmailInDB($student)
+    public function isEmailInDB(Student $student)
     {
         $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email ILIKE :email AND auth_code <> :auth_code");
         $query->bindValue(":email", $student->email);

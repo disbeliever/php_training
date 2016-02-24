@@ -1,7 +1,7 @@
 <?php
 class StudentHelper
 {
-    public static function updateStudentFromPostAndCookies($student)
+    public static function updateStudentFromPostAndCookies(Student $student)
     {
         $fieldsForEdit = array('firstName', 'lastName', 'group', 'mark', 'gender', 'birthyear', 'email');
         foreach ($fieldsForEdit as $field) {

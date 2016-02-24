@@ -21,7 +21,7 @@ class Student
 
     }
     
-    public static function fromRow($row)
+    public static function fromRow(array $row)
     {
         $s = new self();
         $s->id = $row['id'];

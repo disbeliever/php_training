@@ -1,7 +1,7 @@
 <?php
 class ControllerStudent
 {
-    public function __construct($stg)
+    public function __construct(StudentTableGateway $stg)
     {
         $this->stg = $stg;
     }
