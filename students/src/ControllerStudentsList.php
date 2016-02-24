@@ -27,7 +27,7 @@ class ControllerStudentsList
         }
 
         $pager = new Pager(
-            $this->stg->getTotalStudentsNum() / $studentsPerPage + 1,
+            intval(ceil($this->stg->getTotalStudentsNum() / $studentsPerPage)),
             $studentsPerPage,
             UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "{page}")
         );
