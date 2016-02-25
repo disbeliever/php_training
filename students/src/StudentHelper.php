@@ -1,17 +1,19 @@
 <?php
 class StudentHelper
 {
-    public static function updateStudentFromPostAndCookies(Student $student)
+    public static function fillStudentFromArrayAndCookies(array $formData, Student $student)
     {
         $fieldsForEdit = array('firstName', 'lastName', 'group', 'mark', 'gender', 'birthyear', 'email');
         foreach ($fieldsForEdit as $field) {
-            if (isset($_POST[$field])) {
-                $student->$field = is_numeric($_POST[$field]) ? intval($_POST[$field]) : trim(strval($_POST[$field]));
+            if (isset($formData[$field])) {
+                $student->$field = is_numeric($formData[$field]) ?
+                                   intval($formData[$field]) :
+                                   trim(strval($formData[$field]));
             }
         }
 
-        if (isset($_POST['gender'])) {
-            switch($_POST['gender'])
+        if (isset($formData['gender'])) {
+            switch($formData['gender'])
             {
                 case Student::GENDER_MALE: {
                     $student->gender = Student::GENDER_MALE;

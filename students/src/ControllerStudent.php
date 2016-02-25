@@ -28,7 +28,7 @@ class ControllerStudent
             } else {
                 $student = new Student();
             }
-            StudentHelper::updateStudentFromPostAndCookies($student);
+            StudentHelper::fillStudentFromArrayAndCookies($_POST, $student);
 
             if (!TokenHelper::isCSRFTokenSetAndValid()) {
                 $msg = [
