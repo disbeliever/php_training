@@ -3,12 +3,10 @@
 class StudentTableGateway
 {
     private $pdo;
-    private $studentsPerPage;
     const AUTH_LENGTH = 32;
-    public function __construct(PDO $pdo, $studentsPerPage)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
-        $this->studentsPerPage = $studentsPerPage;
     }
 
     public function addStudent(Student $student)
