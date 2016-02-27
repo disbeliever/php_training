@@ -1,9 +1,8 @@
 <?php
 require_once('../src/init.php');
 
-$app = new ControllerStudentsList($stg);
-
 try {
+    $app = new ControllerStudentsList($stg);
     $app->run($config['studentsPerPage']);
 }
 catch(Exception $e) {

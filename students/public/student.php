@@ -1,9 +1,8 @@
 <?php
 require_once('../src/init.php');
 
-$app = new ControllerStudent($stg);
-
 try {
+    $app = new ControllerStudent($stg);
     $app->run();
 }
 catch(Exception $e) {
