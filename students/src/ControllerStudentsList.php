@@ -32,7 +32,7 @@ class ControllerStudentsList
             UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "{page}")
         );
 
-        include('../src/views/ViewStudentsList.php');
+        include(__DIR__ . '/../src/views/ViewStudentsList.php');
 
     }
 }

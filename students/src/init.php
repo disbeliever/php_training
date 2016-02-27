@@ -1,6 +1,6 @@
 <?php
-require_once('Autoloader.php');
-require_once('config.php');
+require_once(__DIR__ . '/Autoloader.php');
+require_once(__DIR__ . '/config.php');
 
 spl_autoload_register(array('Autoloader', 'loadPackages'));
 $PDO = new PDO("$config[dbtype]:host=$config[dbhost];dbname=$config[dbname]", $config['dbuser'], $config['dbpass']);

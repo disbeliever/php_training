@@ -75,7 +75,7 @@ class ControllerStudent
             if ($student->auth != $_COOKIE['auth']) {
                 header("HTTP/1.0 403 Access denied");
                 $errString = "Нет доступа";
-                include('../src/views/Error.php');
+                include(__DIR__ . '/../src/views/Error.php');
                 return;
             }
 
@@ -88,12 +88,12 @@ class ControllerStudent
                 $title = "Регистрация";
                 $saveButtonText = "Зарегистрироваться";
             }
-            include('../src/views/ViewStudent.php');
+            include(__DIR__ . '/../src/views/ViewStudent.php');
         }
         else {
             header("HTTP/1.0 404 Student not found");
             $errString = "Абитуриент с id=$id не найден";
-            include('../src/views/Error.php');
+            include(__DIR__ . '/../src/views/Error.php');
         }
 
     }
