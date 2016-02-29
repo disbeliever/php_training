@@ -55,7 +55,7 @@ class StudentTableGateway
         $row = $query->fetch();
 
         if ($row) {
-            return Student::fromRow($row);
+            return self::createStudentFromArray($row);
         }
     }
 
@@ -67,7 +67,7 @@ class StudentTableGateway
         $row = $query->fetch();
 
         if ($row) {
-            return Student::fromRow($row);
+            return self::createStudentFromArray($row);
         }
     }
 
@@ -90,7 +90,7 @@ class StudentTableGateway
 
         $students = array();
         while ($row = $query->fetch()) {
-            $students[] = Student::fromRow($row);
+            $students[] = self::createStudentFromArray($row);
         }
 
         return $students;
@@ -122,7 +122,7 @@ class StudentTableGateway
         $query->execute();
         $result = array();
         while ($row = $query->fetch()) {
-            $result[] = Student::fromRow($row);
+            $result[] = self::createStudentFromArray($row);
         }
 
         return $result;

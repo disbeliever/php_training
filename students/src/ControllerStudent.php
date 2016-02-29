@@ -35,8 +35,7 @@ class ControllerStudent
                     "class" => "danger",
                     "text" => "Ошибка. Попробуйте сохранить данные ещё раз"
                 ];
-            }
-            else {
+            } else {
                 TokenHelper::setCSRFToken($token);
                 $validator = new StudentValidator($this->stg);
                 $errors = $validator->validate($student);
@@ -57,9 +56,9 @@ class ControllerStudent
                 }
             }
         }
-        /* if method is GET then we should retreive student from DB (if we got id)
+        /* if method is not POST we should retreive student from DB (if we got id)
            or create a new one. */
-        else if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        else {
             if ($id > 0) {
                 $student = $this->stg->getStudentById($id);
             }
