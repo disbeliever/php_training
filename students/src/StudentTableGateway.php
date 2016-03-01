@@ -103,12 +103,16 @@ class StudentTableGateway
         return $count;
     }
 
-    public function isEmailInDB(Student $student)
+    public function isEmailInDB($email, $student_id)
     {
-        $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email ILIKE :email AND auth_code <> :auth_code");
-        $query->bindValue(":email", $student->email);
-        $query->bindValue(":auth_code", $student->auth);
+        if ($student_id == null) {
+            $student_id = 0;
+        }
+        $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email ILIKE :email AND id <> :id");
+        $query->bindValue(":email", $email);
+        $query->bindValue(":id", $student_id, PDO::PARAM_INT);
         $query->execute();
+        var_dump($query);
         $count = $query->fetchColumn();
         return $count > 0;
     }
