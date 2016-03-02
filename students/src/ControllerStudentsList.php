@@ -2,12 +2,14 @@
 class ControllerStudentsList
 {
     private $stg;
-    public function __construct(StudentTableGateway $stg)
+    private $studentsPerPage;
+    public function __construct(StudentTableGateway $stg, $studentsPerPage)
     {
         $this->stg = $stg;
+        $this->studentsPerPage = $studentsPerPage;
     }
 
-    public function run($studentsPerPage)
+    public function run()
     {
         $searchString = isset($_GET['searchString']) ? $_GET['searchString'] : "";
         $sortField = isset($_GET['sort']) ? $_GET['sort'] : "mark";
@@ -18,8 +20,8 @@ class ControllerStudentsList
             $students = $this->stg->getAllStudents(
                 $sortField,
                 $sortDir,
-                $studentsPerPage,
-                $studentsPerPage * ($page-1)
+                $this->studentsPerPage,
+                $this->studentsPerPage * ($page-1)
             );
         }
         else {
@@ -27,8 +29,8 @@ class ControllerStudentsList
         }
 
         $pager = new Pager(
-            intval(ceil($this->stg->getTotalStudentsNum() / $studentsPerPage)),
-            $studentsPerPage,
+            intval(ceil($this->stg->getTotalStudentsNum() / $this->studentsPerPage)),
+            $this->studentsPerPage,
             UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "{page}")
         );
 

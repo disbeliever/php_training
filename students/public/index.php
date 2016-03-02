@@ -2,8 +2,8 @@
 require_once(__DIR__ . '/../src/init.php');
 
 try {
-    $app = new ControllerStudentsList($stg);
-    $app->run($config['studentsPerPage']);
+    $app = new ControllerStudentsList($stg, $config['studentsPerPage']);
+    $app->run();
 }
 catch(Exception $e) {
     error_log($e);
