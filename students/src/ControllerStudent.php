@@ -71,7 +71,7 @@ class ControllerStudent
         }
 
         if ($student != null) {
-            if ($student->auth != $_COOKIE['auth']) {
+            if (isset($student->auth) && $student->auth != "" && $student->auth != $_COOKIE['auth']) {
                 header("HTTP/1.0 403 Access denied");
                 $errString = "Нет доступа";
                 include(__DIR__ . '/../src/views/Error.php');
@@ -79,7 +79,8 @@ class ControllerStudent
             }
 
             if ((isset($student->id) && $student->id > 0) ||
-                (isset($_COOKIE['auth']) && $this->stg->doStudentExists($_COOKIE['auth']))) {
+                (isset($_COOKIE['auth']) &&
+                 $this->stg->doStudentExists($_COOKIE['auth']))) {
                 $title = "Студент: $student->firstName $student->lastName";
                 $saveButtonText = "Сохранить изменения";
             }
