@@ -3,7 +3,7 @@ class UrlHelper
 {
     private static $scriptName = "index.php";
 
-    static function getSortingURL($search, $sort, $dir, $page, $currentSortField)
+    public function getSortingURL($search, $sort, $dir, $page, $currentSortField)
     {
         $dir = $currentSortField == $sort && $dir == "asc" ? "desc" : "asc";
         return self::$scriptName . "?" .

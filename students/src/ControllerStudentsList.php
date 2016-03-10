@@ -28,10 +28,11 @@ class ControllerStudentsList
             $students = $this->stg->searchInDB($searchString, $sortField, $sortDir);
         }
 
+        $urlHelper = new UrlHelper();
         $pager = new Pager(
             intval(ceil($this->stg->getTotalStudentsNum() / $this->studentsPerPage)),
             $this->studentsPerPage,
-            UrlHelper::getPagerURL($searchString, $sortField, $sortDir, "{page}")
+            $urlHelper->getPagerURL($searchString, $sortField, $sortDir, "{page}")
         );
 
         include(__DIR__ . '/../src/views/ViewStudentsList.php');
