@@ -1,4 +1,6 @@
 <?php
+namespace App\Helpers;
+
 class FormHelper
 {
     public static function isFormSent()

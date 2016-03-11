@@ -1,4 +1,13 @@
 <?php
+namespace App\Controllers;
+
+use \App\Helpers\FormHelper;
+use \App\Helpers\StudentHelper;
+use \App\Helpers\StudentValidator;
+use \App\Helpers\TokenHelper;
+use \App\Models\Student;
+use \App\Models\StudentTableGateway;
+
 class ControllerStudent
 {
     public function __construct(StudentTableGateway $stg)
@@ -71,10 +80,10 @@ class ControllerStudent
         }
 
         if ($student != null) {
-            if (isset($student->auth) && $student->auth != "" && $student->auth != $_COOKIE['auth']) {
+            if (!isset($_COOKIE['auth']) ||(isset($student->auth) && $student->auth != "" && $student->auth != $_COOKIE['auth'])) {
                 header("HTTP/1.0 403 Access denied");
                 $errString = "Нет доступа";
-                include(__DIR__ . '/../src/views/Error.php');
+                include(__DIR__ . '/../views/Error.php');
                 return;
             }
 
@@ -88,12 +97,12 @@ class ControllerStudent
                 $title = "Регистрация";
                 $saveButtonText = "Зарегистрироваться";
             }
-            include(__DIR__ . '/../src/views/ViewStudent.php');
+            include(__DIR__ . '/../views/ViewStudent.php');
         }
         else {
             header("HTTP/1.0 404 Student not found");
             $errString = "Абитуриент с id=$id не найден";
-            include(__DIR__ . '/../src/views/Error.php');
+            include(__DIR__ . '/../views/Error.php');
         }
 
     }

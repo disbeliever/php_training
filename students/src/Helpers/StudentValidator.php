@@ -1,4 +1,9 @@
 <?php
+namespace App\Helpers;
+
+use \App\Models\Student;
+use \App\Models\StudentTableGateway;
+
 class StudentValidator
 {
     private $stg;

@@ -1,4 +1,10 @@
 <?php
+namespace App\Controllers;
+
+use \App\Models\StudentTableGateway;
+use \App\Helpers\Pager;
+use \App\Helpers\UrlHelper;
+
 class ControllerStudentsList
 {
     private $stg;
@@ -35,7 +41,7 @@ class ControllerStudentsList
             $urlHelper->getPagerURL($searchString, $sortField, $sortDir, "{page}")
         );
 
-        include(__DIR__ . '/../src/views/ViewStudentsList.php');
+        include(__DIR__ . '/../views/ViewStudentsList.php');
 
     }
 }

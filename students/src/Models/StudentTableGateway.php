@@ -1,10 +1,11 @@
 <?php
+namespace App\Models;
 
 class StudentTableGateway
 {
     private $pdo;
     const AUTH_LENGTH = 32;
-    public function __construct(PDO $pdo)
+    public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
     }
@@ -110,9 +111,8 @@ class StudentTableGateway
         }
         $query = $this->pdo->prepare("SELECT COUNT(email) FROM students WHERE email ILIKE :email AND id <> :id");
         $query->bindValue(":email", $email);
-        $query->bindValue(":id", $student_id, PDO::PARAM_INT);
+        $query->bindValue(":id", $student_id, \PDO::PARAM_INT);
         $query->execute();
-        var_dump($query);
         $count = $query->fetchColumn();
         return $count > 0;
     }
@@ -122,7 +122,7 @@ class StudentTableGateway
         $sortField = $this->getValidSortField($sortField);
         $sortDir = $sortDir == 'desc' ? "DESC" : "";
         $query = $this->pdo->prepare("SELECT * FROM students WHERE CONCAT(first_name, ' ', last_name, ' ', student_group, ' ', mark) ILIKE '%' || :search_string || '%' ORDER BY $sortField $sortDir");
-        $query->bindValue(":search_string", $searchString, PDO::PARAM_STR);
+        $query->bindValue(":search_string", $searchString, \PDO::PARAM_STR);
         $query->execute();
         $result = array();
         while ($row = $query->fetch()) {

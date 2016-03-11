@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . '/../src/init.php');
 
+use \App\Controllers\ControllerStudentsList;
+
 try {
     $app = new ControllerStudentsList($stg, $config['studentsPerPage']);
     $app->run();

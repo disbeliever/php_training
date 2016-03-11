@@ -1,4 +1,6 @@
 <?php
+namespace App\Helpers;
+
 class TokenHelper
 {
     const AUTH_TOKEN_LENGTH = 32;

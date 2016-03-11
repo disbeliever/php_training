@@ -1,4 +1,8 @@
 <?php
+namespace App\Helpers;
+
+use \App\Models\Student;
+
 class StudentHelper
 {
     public static function fillStudentFromArrayAndCookies(array $formData, Student $student)
