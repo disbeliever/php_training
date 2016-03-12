@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers;
+namespace App\Models;
 
 use \App\Models\Student;
 use \App\Models\StudentTableGateway;

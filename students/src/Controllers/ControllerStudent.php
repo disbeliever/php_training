@@ -3,10 +3,10 @@ namespace App\Controllers;
 
 use \App\Helpers\FormHelper;
 use \App\Helpers\StudentHelper;
-use \App\Helpers\StudentValidator;
 use \App\Helpers\TokenHelper;
 use \App\Models\Student;
 use \App\Models\StudentTableGateway;
+use \App\Models\StudentValidator;
 
 class ControllerStudent
 {
