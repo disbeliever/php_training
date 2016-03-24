@@ -22,6 +22,7 @@ class ControllerStudent
         $changesSaved = isset($_GET['changesSaved']);
         $token = TokenHelper::getOrGenerateCSRFToken();
 
+        $msg = ["class" => "", "text" => ""];
         if ($registered) {
             $msg = ["class" => "success", "text" => "Регистрация выполнена"];
         }

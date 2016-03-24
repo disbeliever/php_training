@@ -13,7 +13,7 @@
       <nav>
         <a href="index.php">Список абитуриентов</a>
       </nav>
-      <?php if(isset($msg['class']) && isset($msg['text'])): ?>
+      <?php if($msg['class'] != "" && $msg['text'] != ""): ?>
         <div class="alert alert-<?=$msg['class']?>"><?=$msg['text']?></div>
       <?php endif; ?>
       <div id="register_form">
