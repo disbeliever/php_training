@@ -82,7 +82,7 @@ class ControllerStudent
 
         if ($student != null) {
             if (!isset($_COOKIE['auth']) ||(isset($student->auth) && $student->auth != "" && $student->auth != $_COOKIE['auth'])) {
-                header("HTTP/1.0 403 Access denied");
+                header("{$_SERVER['SERVER_PROTOCOL']} 403 Access denied");
                 $errString = "Нет доступа";
                 include(__DIR__ . '/../views/Error.php');
                 return;
@@ -101,7 +101,7 @@ class ControllerStudent
             include(__DIR__ . '/../views/ViewStudent.php');
         }
         else {
-            header("HTTP/1.0 404 Student not found");
+            header("{$_SERVER['SERVER_PROTOCOL']} 404 Student not found");
             $errString = "Абитуриент с id=$id не найден";
             include(__DIR__ . '/../views/Error.php');
         }
