@@ -7,10 +7,14 @@ class TokenHelper
     public static function generateToken()
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
+        $charactersLength = mb_strlen($characters);
         $randomString = '';
         for ($i = 0; $i < self::AUTH_TOKEN_LENGTH; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+            $randomString .= mb_substr(
+                $characters,
+                rand(0, $charactersLength - 1),
+                1
+            );
         }
         return $randomString;
     }
